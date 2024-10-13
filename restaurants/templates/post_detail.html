@@ -1,0 +1,108 @@
+{% extends 'base_generic.html' %}
+{% load static %}
+{% block content %}
+<div class="post-detail">
+    <h1>자유게시판</h1>
+    
+    <div class="post-header">
+        <h2 class="post-title">{{ post.title }}{% if post.is_new %} [N]{% endif %}</h2>
+        <div class="post-info">
+            <span class="author">{{ post.author.username }}</span>
+            <span class="timestamp">{{ post.created_at|date:"Y.m.d H:i" }}</span>
+            <span class="likes">👍 <span id="like-count">{{ post.likes }}</span></span>
+            <span class="views">👁️ {{ post.views }}</span>
+        </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="post-content">
+        <p>{{ post.content }}</p>
+        {% if post.image %}
+            <img src="{{ post.image.url }}" alt="게시글 이미지" style="max-width: 100%; height: auto;">  <!-- 이미지 표시 -->
+        {% endif %}
+    </div>
+
+    <hr class="divider">
+
+    <div class="post-details meta-info">
+        <span>구분: 자유</span> |
+        <span>작성일: {{ post.created_at|date:"Y.m.d" }}</span>
+    </div>
+
+    <div class="reaction-buttons">
+        <button class="btn btn-like" id="like-button" onclick="likePost({{ post.pk }})">👍</button>
+        
+        {% if post.author == request.user %}
+            <button class="btn btn-warning post-edit-button" onclick="location.href='{% url 'post_edit' post.pk %}'">수정</button>
+            <form action="{% url 'post_delete' post.pk %}" method="POST" style="display:inline;" onsubmit="return confirm('삭제하시겠습니까?');">
+                {% csrf_token %}
+                <button type="submit1" class="btn btn-danger post-delete-button">삭제</button>
+            </form>
+        {% endif %}
+    </div>
+
+    <div class="comments-section">
+        <h3>댓글 {{ comments.count }}</h3>
+
+        {% if not request.user.is_authenticated %}
+            <div class="login-message">
+                <p>로그인 후 댓글을 남길 수 있습니다.</p>
+                <a href="{% url 'login' %}" class="btn login-button">로그인</a>
+            </div>
+        {% else %}
+            <form method="POST" action="{% url 'comment_create' post.pk %}" class="comment-form">
+                {% csrf_token %}
+                <div class="form-group">
+                    <textarea name="content" id="comment-input" placeholder="댓글을 입력하세요." required class="comment-input"></textarea>
+                    <div class="form-controls">
+                        <span id="char-count" class="char-count">0 / 200</span>
+                        <button type="submit" class="btn btn-register">등록</button>
+                    </div>
+                </div>
+            </form>
+        {% endif %}
+    
+        <div class="comments-list">
+            {% for comment in comments %}
+                <div class="comment">
+                    <div class="comment-header">
+                        <div class="comment-author">{{ comment.author.username }} ({{ comment.created_at|date:"Y.m.d H:i" }})</div>
+                        {% if comment.author == request.user %}
+                            <div class="comment-actions">
+                                <button class="btn btn-edit" onclick="editComment({{ comment.pk }})">수정</button>
+                                <form action="{% url 'comment_delete' post.pk comment.pk %}" method="POST" style="display:inline;" onsubmit="return confirm('삭제하시겠습니까?');">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger btn-delete">삭제</button>
+                                </form>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div id="comment-content-{{ comment.pk }}" class="comment-content">{{ comment.content }}</div>
+                    {% if comment.author == request.user %}
+                        <div id="edit-comment-{{ comment.pk }}" class="edit-comment" style="display:none;">
+                            <form method="POST" action="{% url 'comment_edit' post.pk comment.pk %}">
+                                {% csrf_token %}
+                                <textarea name="content" required class="comment-input">{{ comment.content }}</textarea>
+                                <button type="submit" class="btn btn-danger">저장</button>
+                                <button type="button" class="btn cancel-button" onclick="cancelEdit({{ comment.pk }})">취소</button>
+                            </form>
+                        </div>
+                    {% endif %}
+                </div>
+            {% empty %}
+                <div class="no-comments">댓글이 없습니다.</div>
+            {% endfor %}
+        </div>
+        
+
+        <div class="back-button">
+            <a href="{% url 'post_list' %}" class="btn back-btn">목록으로 돌아가기</a>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/comments.js' %}" defer></script>
+
+{% endblock %}
