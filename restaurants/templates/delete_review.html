@@ -1,0 +1,16 @@
+{% extends 'base_generic.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+<div class="content-review">
+    <h1>리뷰 삭제 확인</h1>
+    <p>정말 이 리뷰를 삭제하시겠습니까?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">삭제하기</button>
+        <a href="{% url 'review_list' restaurant_id=review.restaurant.id %}">취소</a>
+    </form>
+</div>
+{% endblock %}

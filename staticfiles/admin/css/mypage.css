@@ -1,0 +1,235 @@
+/* mypage_v2.css */
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 20px;
+}
+
+.luxury-container {
+    max-width: 800px;
+    margin: auto;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    text-align: center; /* 중앙 정렬 */
+}
+
+header {
+    margin-bottom: 30px;
+}
+
+h1 {
+    font-size: 2.5em;
+    color: #1b1e20; /* 제목 색상 */
+}
+
+h2 {
+    font-size: 1.8em;
+    color: #859098; /* 서브 제목 색상 */
+    margin-bottom: 10px;
+}
+
+.luxury-messages {
+    margin-bottom: 20px;
+}
+
+.luxury-alert {
+    padding: 15px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+}
+
+    .luxury-alert.success {
+        color: #155724;
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+    }
+
+    .luxury-alert.error {
+        color: #721c24;
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+    }
+
+nav {
+    margin-bottom: 30px;
+}
+
+    nav ul {
+        list-style: none;
+        padding: 0;
+    }
+
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+            nav ul li a {
+                text-decoration: none;
+                color: #1b1e20; /* 네비게이션 링크 색상 */
+                font-weight: bold;
+            }
+
+                nav ul li a:hover {
+                    color: #ff545a; /* 호버 색상 */
+                    text-decoration: underline;
+                }
+
+.luxury-section {
+    margin-bottom: 40px;
+}
+
+.luxury-form {
+    margin-bottom: 20px;
+}
+
+.luxury-profile-pic-container {
+    margin-bottom: 20px;
+}
+
+.luxury-profile-pic {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%; /* 원형 틀 */
+    border: 3px solid #859098; /* 프로필 사진 테두리 색상 */
+    margin-bottom: 15px;
+}
+
+.luxury-input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: border-color 0.3s;
+}
+
+    .luxury-input:focus {
+        border-color: #1b1e20; /* 포커스 시 테두리 색상 */
+    }
+
+/* 버튼 색상 설정 */
+.luxury-button {
+    padding: 12px 20px;
+    background-color: #859098; /* 기본 버튼 색상 */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+    /* 호버 시 색상 변경 제거 */
+    .luxury-button:hover {
+        background-color: #859098; /* 호버 시 색상도 동일하게 유지 */
+    }
+
+/* 삭제 버튼 설정 */
+.delete-button {
+    padding: 8px 15px; /* 버튼 크기를 줄임 */
+    background-color: #859098; /* 삭제 버튼 색상 */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    
+}
+
+    /* 삭제 버튼 호버 색상도 동일하게 유지 */
+    .delete-button:hover {
+        background-color: #859098; /* 호버 시 색상도 동일하게 유지 */
+    }
+
+.luxury-list {
+    padding-left: 0;
+}
+
+.luxury-list-item {
+    background: #f9f9f9;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    color: #1b1e20; /* 리스트 아이템 텍스트 색상 */
+}
+.password-fields {
+    display: flex;
+    flex-direction: column; /* 수직 정렬 */
+    margin-bottom: 10px; /* 입력 필드 사이의 간격 */
+}
+
+.password-field {
+    display: flex; /* 수평 정렬 */
+    align-items: center; /* 수직 정렬 */
+    margin-bottom: 15px; /* 각 입력 필드 사이의 간격 */
+}
+
+    .password-field label {
+        width: 15%; /* 레이블의 너비 조정 */
+        margin-right: 10px; /* 레이블과 입력 필드 사이의 간격 */
+    }
+
+    .password-field .luxury-input {
+        width: 50%; /* 입력 박스의 너비 조정 */
+        padding: 10px; /* 패딩 조정 (선택적) */
+    }
+
+.password-rules {
+    text-align: left; /* 설명 텍스트 왼쪽 정렬 */
+    margin-top: 20px; /* 설명 텍스트 상단 여백 */
+}
+
+    .password-rules p {
+        margin: 0; /* 각 문단 간격 제거 */
+    }
+
+/* 비밀번호 변경 버튼 스타일 */
+#togglePasswordChange {
+    background: #859098; /* 배경 제거 */
+    border: none; /* 테두리 제거 */
+    color: #fff; /* 버튼 색상 */
+    font-size: 1.8rem; /* 폰트 크기 */
+    /*text-decoration: underline;*/ /* 밑줄 추가 */
+    cursor: pointer; /* 커서 포인터로 변경 */
+    transition: color 0.3s; /* 색상 변경 애니메이션 */
+    border-radius: 5px; /* 모서리 둥글게 */
+}
+
+
+    /* 버튼 hover 상태 스타일 */
+    #togglePasswordChange:hover {
+        color: #fff; /* 호버 시 색상 변경 */
+        text-decoration: none; /* 호버 시 밑줄 제거 */
+    }
+
+/* 비밀번호 변경 섹션의 h2 스타일 */
+/*#change-password h2 {
+    font-size: 1.2rem;*/ /* 폰트 크기 조정 (작게) */
+    /*color: #859098;*/ /* 글자 색상 */
+    /*margin-bottom: 10px;*/ /* 하단 여백 */
+    /*position: relative;*/ /* 위치 설정 */
+    /*padding: 3px 6px;*/ /* 패딩 조정 (작게) */
+    /*background-color: #859098;*/ /* 기본 버튼 색상 */
+    /*border: none;
+    border-radius: 5px;
+    cursor: pointer;*/
+/*}*/
+
+
+
+/* 비밀번호 변경 폼 스타일 */
+#passwordChangeForm {
+    margin-top: 10px; /* 상단 여백 */
+    padding: 15px; /* 패딩 추가 */
+    border: 1px solid #ddd; /* 테두리 스타일 */
+    border-radius: 5px; /* 모서리 둥글게 */
+    background-color: #f9f9f9; /* 배경색 */
+    display: none; /* 기본적으로 숨김 */
+}
+
+    /* 드롭다운이 보일 때 */
+    #passwordChangeForm.show {
+        display: block; /* 드롭다운 보이기 */
+    }

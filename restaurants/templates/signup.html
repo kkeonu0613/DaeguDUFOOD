@@ -1,0 +1,69 @@
+{% extends 'base_generic.html' %}
+{% load static %}
+{% block title %}회원가입{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<div class="dudu"> <!-- dudu 클래스로 감싸기 -->
+    <div class="dudu-txt">
+        <h2>오늘은 뭘 먹어야할까? <br> 뭐먹을지 정해보자 </h2>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card mt-5">
+                <div class="card-header text-center">
+                    <h2>회원가입</h2>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+                            <input type="text" name="{{ form.username.name }}" id="{{ form.username.id_for_label }}" class="form-control" value="{{ form.username.value|default_if_none:'' }}">
+                            {% if form.username.errors %}
+                            <div class="text-danger">
+                                {% for error in form.username.errors %}
+                                <small class="form-text error">{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                            {% if form.username.help_text %}
+                            <small class="form-text text-muted">{{ form.username.help_text|linebreaks  }}</small>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="{{ form.password1.id_for_label }}">{{ form.password1.label }}</label>
+                            <input type="password" name="{{ form.password1.name }}" id="{{ form.password1.id_for_label }}" class="form-control" value="{{ form.password1.value|default_if_none:'' }}">
+                            {% if form.password1.errors %}
+                            <div class="text-danger">
+                                {% for error in form.password1.errors %}
+                                <small class="form-text error">{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                            {% if form.password1.help_text %}
+                            <small class="form-text text-muted">{{ form.password1.help_text|linebreaks  }}</small>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="{{ form.password2.id_for_label }}">{{ form.password2.label }}</label>
+                            <input type="password" name="{{ form.password2.name }}" id="{{ form.password2.id_for_label }}" class="form-control" value="{{ form.password2.value|default_if_none:'' }}">
+                            {% if form.password2.errors %}
+                            <div class="text-danger">
+                                {% for error in form.password2.errors %}
+                                <small class="form-text error">{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                            {% if form.password2.help_text %}
+                            <small class="form-text text-muted">{{ form.password2.help_text|linebreaks }}</small>
+                            {% endif %}
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">가입하기</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

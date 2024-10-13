@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\media",
+    "\\media\\post_images",
+    "\\restaurants",
+    "\\restaurants\\templates",
+    "\\staticfiles",
+    "\\staticfiles\\admin",
+    "\\staticfiles\\admin\\css",
+    "\\staticfiles\\css",
+    "\\staticfiles\\js"
+  ],
+  "SelectedNode": "\\restaurants\\templates\\post_list.html",
+  "PreviewInSolutionExplorer": false
+}

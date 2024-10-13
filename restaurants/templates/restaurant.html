@@ -1,0 +1,60 @@
+<!-- restaurant.html -->
+{% extends 'base_generic.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<script src="{% static 'js/menuToggle.js' %}"></script>
+
+<div class="restaurant-details">
+    <h1>{{ restaurant.name }}</h1>
+    {% if restaurant.image %}
+    <img src="{{ restaurant.image.url }}" alt="{{ restaurant.name }}" class="restaurant-image">
+    {% else %}
+    <img src="{% static 'image/default_image.jpg' %}" alt="기본 이미지" class="restaurant-image">
+    {% endif %}
+    <div class="location-menu">
+        <h3>위치: {{ restaurant.location }}</h3>
+        <h3 class="menu-toggle">메뉴</h3>
+        <!-- 검색 창과 메뉴 내용을 감싸는 div -->
+        <div class="menu-search-wrapper" id="search-wrapper">
+            <div class="menu-search-container">
+                <input type="text" id="search-bar" placeholder="메뉴 검색...">
+                <!-- 검색 버튼 -->
+                <button id="search-btn">검색</button>
+            </div>
+        </div>
+        <!-- 해당 메뉴가 없다는 문구 -->
+        <p id="search-warning" style="display: none;">해당 메뉴는 없습니다.</p>
+        <!-- 메뉴 내용 -->
+        <div class="menu-content" id="menu-content">
+            {{ restaurant.menu | linebreaksbr }}
+        </div>
+    </div>
+    <div class="restaurant-links">
+        <a href="{% url 'reviews' restaurant.id %}">리뷰 보기</a> |
+        {% if user.is_authenticated %}
+        <a href="{% url 'create_review' restaurant.id %}">리뷰 작성</a> |
+        {% else %}
+        <a href="{% url 'login' %}?next={% url 'create_review' restaurant.id %}">리뷰 작성</a> |
+        {% endif %}
+        <a href="{% url 'category' restaurant.category.name %}">식당 목록</a>
+    </div>
+    <!-- 리뷰가 없을 때와 있을 때 모두 평균 별점을 표시 -->
+    <p>
+        평점:
+        {% if average_rating is not None %}
+        {{ average_rating|floatformat:"1" }} 점
+        {% else %}
+        아직 평가된 리뷰가 없습니다.
+        {% endif %}
+    </p>
+</div>
+
+<!-- 검색 결과 정보를 표시하는 요소 -->
+<div id="search-info" class="search-info" style="display: none;">
+    <span id="current-position">0</span> / <span id="total-keywords">0</span>
+    <button id="next-btn">다음</button>
+</div>
+
+{% endblock %}

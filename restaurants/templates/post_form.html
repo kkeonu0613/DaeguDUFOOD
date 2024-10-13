@@ -1,0 +1,41 @@
+{% extends 'base_generic.html' %}
+{% load static %}
+{% block content %}
+<div class="post-form">
+    <h1>{% if form.instance.pk %}게시글 수정{% else %}게시글 작성{% endif %}</h1>
+    
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <div class="form-group text-center"> <!-- 가운데 정렬을 위한 클래스 추가 -->
+            <label for="id_title">제목:</label>
+            <input type="text" id="id_title" name="title" placeholder="제목을 입력하세요" class="form-control" required>
+        </div>
+        
+        <div class="form-group text-center"> <!-- 가운데 정렬을 위한 클래스 추가 -->
+            <label for="id_content">내용:</label>
+            <textarea id="id_content" name="content" placeholder="내용을 입력하세요" rows="5" class="form-control" required></textarea>
+        </div>
+        
+        <div class="form-group text-center"> <!-- 가운데 정렬을 위한 클래스 추가 -->
+            <label for="id_image">이미지 업로드:</label>
+            <input type="file" id="id_image" name="image" accept="image/*" class="form-control">
+        </div>
+        
+        <div class="form-group text-center"> <!-- 가운데 정렬을 위한 클래스 추가 -->
+            <p class="info-text">※ 게시판 운영자에 의해 삭제될 수 있는 사유 안내입니다.</p>
+            <ul class="info-list">
+                <li>옥션, 상가비방 등 단어의 명예를 훼손하는 게시물</li>
+                <li>불법적인 물품의 이미지나 내용, 저작권에 위배되는 게시물</li>
+                <li>개인정보가 포함되어 있는 게시물</li>
+                <li>공식 안내되지 않은 내용으로 혼란을 초래할 수 있는 게시물</li>
+            </ul>
+        </div>
+        
+        <div class="text-center"> <!-- 버튼을 감싸는 div -->
+            <button type="submit" class="btn btn-success">등록하기</button>
+            <button type="button" class="btn btn-secondary" onclick="window.location.href='{% url 'post_list' %}'">취소</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

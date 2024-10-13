@@ -1,0 +1,175 @@
+{% extends 'base_generic.html' %}
+{% load static %}
+
+{% block content %}
+<script>
+    const csrfToken = '{{ csrf_token }}'; // CSRF 토큰을 JavaScript에서 사용
+    const mainUrl = "{% url 'main' %}"; // main URL을 JavaScript 변수로 저장
+</script>
+<script src="{% static 'js/main_like.js' %}" defer></script> <!-- like.js 파일 링크 -->
+
+<section id="home" class="welcome-hero">
+    <div class="container">
+        <div class="welcome-hero-txt">
+            <h2>오늘은 뭘 먹어야할까? <br> 뭐먹을지 정해보자 </h2>
+            <p>오늘 뭐드실래요</p>
+        </div>
+        <div class="welcome-hero-serch-box">
+            <form id="search-form" action="{% url 'main' %}" method="get" style="width: 100%;">
+                <div class="welcome-hero-form">
+                    <div class="single-welcome-hero-form">
+                        <h3>식당</h3>
+                        <input type="text" name="name" placeholder="Ex: 한식, 중식, 양식, 일식, 술집" />
+                        <div class="welcome-hero-form-icon">
+                            <i class="flaticon-list-with-dots"></i>
+                        </div>
+                    </div>
+                    <div class="single-welcome-hero-form">
+                        <h3>장소</h3>
+                        <input type="text" name="location" placeholder="Ex: 평사, 정문, 상림, 내리" />
+                        <div class="welcome-hero-form-icon">
+                            <i class="flaticon-gps-fixed-indicator"></i>
+                        </div>
+                    </div>
+                    <div class="welcome-hero-serch">
+                        <button class="welcome-hero-btn" type="submit1">
+                            검색 <i data-feather="search"></i>
+                        </button>
+                    </div>
+                </div>
+                <div>
+                    <h3>카테고리 선택:</h3>
+                    {% for category in categories %}
+                    <label>
+                        <input type="checkbox" name="categories" value="{{ category.id }}"
+                               {% if category.id|stringformat:"s" in selected_categories %}checked{% endif %}>
+                        {{ category.name }}
+                    </label>
+                    {% endfor %}
+                </div>
+                <div class="welcome-hero-serch">
+                    <button type="button" id="random-button">
+                        랜덤 <i data-feather="shuffle"></i>
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</section><!--/.welcome-hero-->
+
+<script>
+    document.getElementById('random-button').onclick = function () {
+        const form = document.getElementById('search-form');
+        const formData = new FormData(form);
+
+        // 체크된 카테고리 수집
+        const checkboxes = document.querySelectorAll('.category-checkbox:checked');
+        checkboxes.forEach((checkbox) => {
+            formData.append('categories', checkbox.value);
+        });
+
+        // 랜덤 버튼 클릭 시 formData에 random=true 추가
+        formData.append('random', 'true');
+
+        // URLSearchParams를 사용하여 쿼리 문자열 생성
+        const queryString = new URLSearchParams(formData).toString();
+
+        // 랜덤 URL로 이동
+        location.href = '{% url 'main' %}?' + queryString;
+    };
+</script>
+
+<section>
+    <div class="container">
+        <h1 class="mt-5">{{ search_query }} 매장 정보</h1>
+        {% if restaurants %}
+        {% for restaurant in restaurants %}
+        <div class="explore-content">
+            <div class="row1">
+                <div class="col-md-4 col-sm-6">
+                    <div class="single-explore-item">
+                        <div class="single-explore-img">
+                            {% if restaurant.image %}
+                            <img src="{{ restaurant.image.url }}" alt="{{ restaurant.name }}" class="restaurant-image">
+                            {% else %}
+                            <img src="{% static 'image/default_image.jpg' %}" alt="기본 이미지" class="restaurant-image">
+                            {% endif %}
+                        </div>
+                        <div class="single-explore-txt bg-theme-1">
+                            <h2><a href="{% url 'restaurant_view' restaurant.id %}">{{ restaurant.name }}</a></h2>
+                            <p class="explore-rating-price">
+                                <span class="explore-rating">{{ restaurant.average_rating|floatformat:1 }}</span>
+                                <span class="restaurant-location">{{ restaurant.location }}</span>
+                                <span class="divider" style="border-left: 1px solid #ccc; height: 20px; margin: 0 10px;"></span>
+                                <span class="category-name">{{ restaurant.category.name }}</span>
+                            </p>
+                            <div class="explore-person">
+                                <div class="row">
+                                    <div class="col-sm-10">
+                                        <p class="review-text">
+                                            {{ restaurant.first_review_text }}
+                                        </p>
+                                        <button class="btn-more" onclick="window.location.href='{% url 'reviews' restaurant.id %}'">더보기</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="explore-open-close-part">
+                                <div class="row">
+                                    <div class="col-sm-5">
+                                        <button class="close-btn" onclick="closeRestaurant()">Close Now</button>
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <div class="explore-map-icon" style="display: flex; align-items: center;">
+                                            <a href="#"><i data-feather="map-pin"></i></a>
+                                            <a href="#"><i data-feather="upload"></i></a>
+                                            <div class="like-container" style="display: flex; align-items: center; margin-left: 10px;">
+                                                <a href="#" class="like-button" data-restaurant-id="{{ restaurant.id }}" data-is-authenticated="{{ user.is_authenticated|yesno:'true,false' }}" data-category-name="{{ restaurant.category.name|urlencode }}">
+                                                    <i class="heart-icon {% if restaurant.id in user_liked_restaurants %}filled{% endif %}" data-feather="heart" style="color: {% if restaurant.id in user_liked_restaurants %}red{% else %}gray{% endif %};"></i>
+                                                </a>
+                                                <span class="like-count" style="margin-left: 5px;">{{ restaurant.likes }}</span> <!-- 좋아요 수 표시 -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <li>이 카테고리에는 아직 식당이 없습니다.</li>
+        {% endfor %}
+
+
+
+        {% else %}
+        <p>현재 등록된 식당이 없습니다.</p>
+        {% endif %}
+    </div>
+    <!-- 페이징 버튼 -->
+    <div class="main-pagination">
+        <div class="pagination-container">
+            <span class="step-links">
+                {% if restaurants.has_previous %}
+                <a href="?page={{ restaurants.previous_page_number }}&{{ query_string }}" class="main-pagination-btn">◀</a>
+                {% endif %}
+
+                {% for page in page_range %}
+                {% if page == current_page %}
+                <strong class="current-page">{{ page }}</strong> <!-- 현재 페이지에 클래스 추가 -->
+                {% else %}
+                <a href="?page={{ page }}&{{ query_string }}" class="main-pagination-btn">{{ page }}</a>
+                {% endif %}
+                {% endfor %}
+
+                {% if restaurants.has_next %}
+                <a href="?page={{ restaurants.next_page_number }}&{{ query_string }}" class="main-pagination-btn">▶</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
