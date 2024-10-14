@@ -5,3 +5,5 @@ pip==24.2
 pymongo==4.8.0
 sqlparse==0.5.1
 tzdata==2024.2
+pip freeze > requirements.txt
+gunicorn==20.1.0
