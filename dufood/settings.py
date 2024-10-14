@@ -11,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'default-secret-key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False  # 배포 환경에서는 False로 설정
+DEBUG = True    # 배포 환경에서는 False로 설정
 
 # ALLOWED_HOSTS는 Koyeb에서 제공하는 URL을 포함시킵니다.
 # settings.py
