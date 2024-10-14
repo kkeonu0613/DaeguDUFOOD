@@ -21,3 +21,4 @@ RUN python manage.py collectstatic --noinput
 
 # 9. Gunicorn을 통해 애플리케이션 실행
 CMD ["gunicorn", "dufood.wsgi:application", "--bind", "0.0.0.0:8000"]
+
