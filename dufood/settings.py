@@ -107,3 +107,20 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # 로그인 URL 설정
 LOGIN_URL = '/login/'
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
