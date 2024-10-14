@@ -26,6 +26,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',  # SQLite를 사용하고 있다면 이렇게 설정합니다.
+    }
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
