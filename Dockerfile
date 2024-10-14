@@ -18,5 +18,4 @@ RUN python manage.py migrate --noinput
 
 # 7. 정적 파일을 수집
 RUN python manage.py collectstatic --noinput
-
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["gunicorn", "dufood.wsgi:application", "--bind", "0.0.0.0:8000", "--log-level", "info"]
