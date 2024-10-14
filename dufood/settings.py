@@ -11,13 +11,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'default-secret-key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False    # 배포 환경에서는 False로 설정
+DEBUG = False  # 배포 환경에서는 False로 설정
 
 # ALLOWED_HOSTS는 Koyeb에서 제공하는 URL을 포함시킵니다.
-# settings.py
-
-ALLOWED_HOSTS = ['*']  # 또는 your-koyeb-app-name.koyeb.app와 같은 URL을 지정
-
+ALLOWED_HOSTS = ['bare-willabella-dufood-1844b7ff.koyeb.app', 'localhost', '127.0.0.1']  # Koyeb의 URL로 수정
 
 # Application definition
 INSTALLED_APPS = [
@@ -59,6 +56,14 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'dufood.wsgi.application'
+
+# DATABASES 설정 (SQLite 사용)
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',  # SQLite 사용
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),  # db.sqlite3 파일 경로
+    }
+}
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
