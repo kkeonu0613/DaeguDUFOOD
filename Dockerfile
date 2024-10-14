@@ -4,13 +4,6 @@ FROM python:3.9-slim
 # 2. 작업 디렉토리 설정
 WORKDIR /app
 
-# 3. 시스템 패키지 설치 (필요한 경우)
-# 예를 들어, Pillow 설치에 필요한 라이브러리가 있을 수 있습니다.
-RUN apt-get update && apt-get install -y \
-    libjpeg-dev \
-    libpq-dev \
-    && rm -rf /var/lib/apt/lists/*
-
 # 4. 필수 의존성 파일을 복사
 COPY requirements.txt /app/
 
