@@ -19,5 +19,5 @@ RUN python manage.py migrate --noinput
 # 7. 정적 파일을 수집
 RUN python manage.py collectstatic --noinput
 
-# 8. Gunicorn을 통해 애플리케이션 실행 (무한 실행 설정)
-CMD ["gunicorn", "dufood.wsgi:application", "--bind", "0.0.0.0:8000", "--log-level", "debug", "--worker-class", "sync"]
+# 8. Gunicorn을 통해 애플리케이션 실행 (서버가 종료되지 않도록)
+CMD ["gunicorn", "dufood.wsgi:application", "--bind", "0.0.0.0:8000", "--log-level", "debug", "--worker-class", "sync", "--timeout", "0"]
