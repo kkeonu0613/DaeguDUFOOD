@@ -14,7 +14,10 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'default-secret-key')
 DEBUG = False  # 배포 환경에서는 False로 설정
 
 # ALLOWED_HOSTS는 Koyeb에서 제공하는 URL을 포함시킵니다.
-ALLOWED_HOSTS = ['your-koyeb-app-name.koyeb.app', 'localhost', '127.0.0.1']
+# settings.py
+
+ALLOWED_HOSTS = ['bare-willabella-dufood-1844b7ff.koyeb.app', 'localhost', '127.0.0.1']
+
 
 # Application definition
 INSTALLED_APPS = [
