@@ -28,11 +28,10 @@ INSTALLED_APPS = [
 ]
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',  # SQLite를 사용하고 있다면 이렇게 설정합니다.
+        'ENGINE': 'django.db.backends.sqlite3',  # SQLite 사용
+        'NAME': BASE_DIR / 'db.sqlite3',         # db.sqlite3 파일을 최상위 폴더에서 찾도록 설정
     }
 }
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
