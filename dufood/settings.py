@@ -11,12 +11,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'default-secret-key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True    # 배포 환경에서는 False로 설정
+DEBUG = False    # 배포 환경에서는 False로 설정
 
 # ALLOWED_HOSTS는 Koyeb에서 제공하는 URL을 포함시킵니다.
 # settings.py
 
-ALLOWED_HOSTS = ['bare-willabella-dufood-1844b7ff.koyeb.app', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['*']  # 또는 your-koyeb-app-name.koyeb.app와 같은 URL을 지정
 
 
 # Application definition
