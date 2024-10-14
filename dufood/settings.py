@@ -58,12 +58,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'dufood.wsgi.application'
 
-# Database
-# PostgreSQL이나 MongoDB와 같은 외부 데이터베이스를 사용할 때, DATABASE_URL 환경 변수로 설정합니다.
-DATABASES = {
-    'default': dj_database_url.config(default='postgres://user:password@host:port/dbname')
-}
-
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {
